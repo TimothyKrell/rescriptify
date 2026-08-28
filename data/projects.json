@@ -1,0 +1,37 @@
+[
+  {
+    "id": "_j_cFgusK58KcPApSI890",
+    "name": "ship-dead-clip3-x",
+    "createdAt": "2026-08-28T15:58:27.009Z",
+    "updatedAt": "2026-08-28T16:26:51.342Z",
+    "takes": [
+      {
+        "id": "33bd58f6-8de2-4dc6-b818-8140161b4e63",
+        "start": 6.76,
+        "end": 11.69,
+        "text": "The economy can't take it. Debt is crazy and all that.",
+        "speaker": "On-screen speaker",
+        "status": "complete",
+        "prompt": "subject_definitions:\n<Video 1> is the source video for the target video edit, including its visible people, setting, composition, camera movement, and timing.\n<Subject 1> is On-screen speaker in <Video 1>, preserving the person's identity, appearance, clothing, position, expression, and body movement.\n<Audio 1> is the synchronized soundtrack of <Video 1>; its ambience and non-dialogue sounds are reused, while the speaking voice's timbre and delivery guide (S1).\n\nsummary:\n[video editing + audio reference] The target video is an edited version of <Video 1>. It preserves the source scene and timing while <Subject 1> speaks replacement dialogue with synchronized lip movement.\n\nretention_analysis:\n<Video 1> (complete visual timeline): fully_preserved - preserve the framing, camera movement, cuts, lighting, environment, all non-speaking people, and action timing.\n<Subject 1> (appears throughout the source segment): partially_preserved - preserve identity, pose, expression, and movement while changing only mouth articulation to match the replacement dialogue.\n<Audio 1>: partially_copy - retain ambience and physical sounds while replacing the selected speaker's words and referencing the original voice timbre and delivery.\n\ndetailed_description:\nThe target video is live-action and exactly follows <Video 1>'s visual style, composition, camera motion, action, and 4.93-second timing.\n[Shot 1] Preserve the source segment continuously. <Subject 1> (S1) remains in the original position and performs the same visible actions and expressions. The speaker says naturally in the voice timbre, cadence, volume, and acoustic space referenced from <Audio 1>: <d>[English] The economy can't take it. Debt is crazy and all that.</d> Precisely synchronize every visible mouth movement with the replacement words. Preserve every other person's closed-mouth state or original non-speaking reaction. Do not add subtitles, captions, graphics, new objects, new people, or camera changes.\n\noverall_soundscape:\nReuse the room tone, ambience, and physical sound layers referenced from <Audio 1>, excluding the original selected dialogue.\n\nnon_diegetic_music:\nReuse any audience-only score from <Audio 1> without alteration; otherwise N/A.",
+        "jobId": "2aafa4b4-07a6-448f-bc64-fa8fca2dcf74",
+        "generations": [
+          {
+            "id": "In1IXqWr3W0yMrfQkVqpw",
+            "jobId": "2aafa4b4-07a6-448f-bc64-fa8fca2dcf74",
+            "createdAt": "2026-08-28T16:13:56.555Z",
+            "status": "complete",
+            "segmentUrl": "/media/_j_cFgusK58KcPApSI890_In1IXqWr3W0yMrfQkVqpw_replacement.mp4",
+            "stitchedUrl": "/media/_j_cFgusK58KcPApSI890_In1IXqWr3W0yMrfQkVqpw_stitched.mp4"
+          }
+        ]
+      }
+    ],
+    "video": {
+      "url": "/media/16cc2cc4fbb11b652fa2413a13509763.mp4",
+      "filename": "16cc2cc4fbb11b652fa2413a13509763.mp4",
+      "duration": 14.243125,
+      "width": 1920,
+      "height": 816
+    }
+  }
+]

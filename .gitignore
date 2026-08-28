@@ -1,0 +1,8 @@
+node_modules
+dist
+.tsbuild
+*.tsbuildinfo
+data/uploads/*
+!data/uploads/.gitkeep
+a-few-good-men-truth-scene.mp4
+i-want-the-truth-you-cant-handle-the-truth.mp4
