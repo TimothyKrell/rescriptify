@@ -5,6 +5,8 @@ export type Generation = {
   status: "queued" | "running" | "stitching" | "complete" | "failed";
   segmentUrl?: string;
   stitchedUrl?: string;
+  width?: number;
+  height?: number;
   error?: string;
 };
 

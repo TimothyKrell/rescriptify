@@ -17,6 +17,7 @@ The bundled `config/workflows/minimax-h3-dialogue-api.json` uses the MiniMax H3 
 
 The app patches the source video, prompt, and H3 duration before submitting to ComfyUI. Uploaded projects and metadata are local under `data/`.
 The selected region is frame-accurately extracted with FFmpeg and staged into `COMFY_INPUT_DIR` (which defaults to this machine's `/home/timothykrell/ai/ComfyUI/input`).
+Generation canvases preserve the source aspect ratio using MiniMax H3-compatible 32-pixel dimensions. Stitched replacements use a minimal center crop to match the source canvas exactly, without stretching or letterboxing.
 
 ## Architecture
 

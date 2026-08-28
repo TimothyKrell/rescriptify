@@ -6,12 +6,20 @@ const defaultWorkflowPath = path.resolve("config/workflows/minimax-h3-dialogue-a
 const comfyOutput = process.env.COMFY_OUTPUT_DIR || "/home/timothykrell/ai/ComfyUI/output";
 export async function comfyReady() { try { return (await fetch(`${baseUrl}/system_stats`, { signal: AbortSignal.timeout(1500) })).ok; } catch { return false; } }
 
-export async function queueComfyJob(input: { sourcePath: string; prompt: string; duration: number }) {
+export function getH3Canvas(sourceWidth: number, sourceHeight: number) {
+  const aspect = sourceWidth > 0 && sourceHeight > 0 ? sourceWidth / sourceHeight : 16 / 9;
+  const height = Math.max(32, Math.round(Math.sqrt(500_000 / aspect) / 32) * 32);
+  const width = Math.max(32, Math.round((height * aspect) / 32) * 32);
+  return { width, height };
+}
+
+export async function queueComfyJob(input: { sourcePath: string; prompt: string; duration: number; sourceWidth: number; sourceHeight: number }) {
   const workflowPath = process.env.COMFY_WORKFLOW_PATH || defaultWorkflowPath;
   const workflow = JSON.parse(await fs.readFile(path.resolve(workflowPath), "utf8"));
   const graph = workflow.prompt || workflow;
   const comfyInput = process.env.COMFY_INPUT_DIR || "/home/timothykrell/ai/ComfyUI/input";
   const stagedName = `rescript_${Date.now()}_${path.basename(input.sourcePath)}`;
+  const canvas = getH3Canvas(input.sourceWidth, input.sourceHeight);
   await fs.copyFile(input.sourcePath, path.join(comfyInput, stagedName));
   let promptSet = false;
   let videoSet = false;
@@ -21,6 +29,8 @@ export async function queueComfyJob(input: { sourcePath: string; prompt: string;
     if (node.class_type === "MiniMaxH3ReferenceToVideo") {
       node.inputs.prompt = input.prompt;
       node.inputs.length = Math.max(5, Math.ceil(input.duration * 24 / 17) * 17 + 5);
+      node.inputs.width = canvas.width;
+      node.inputs.height = canvas.height;
       promptSet = true;
     }
     if ((node.class_type === "LoadVideo" || node.class_type === "VHS_LoadVideo") && (!videoSet || title.includes("source"))) {
@@ -32,7 +42,8 @@ export async function queueComfyJob(input: { sourcePath: string; prompt: string;
   if (!promptSet || !videoSet) throw new Error("The Comfy workflow must contain MiniMaxH3ReferenceToVideo and LoadVideo nodes.");
   const response = await fetch(`${baseUrl}/prompt`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ prompt: graph, client_id: "rescript-studio" }) });
   if (!response.ok) throw new Error(`ComfyUI rejected the workflow: ${await response.text()}`);
-  return response.json() as Promise<{ prompt_id: string }>;
+  const result = await response.json() as { prompt_id: string };
+  return { ...result, ...canvas };
 }
 
 type ComfyHistory = {
